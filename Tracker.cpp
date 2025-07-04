@@ -4,12 +4,12 @@
 #include <stack>
 #include <algorithm>
 #include <string>
-#include <ctime>   //for current time
-#include <fstream> //for loading to file
+#include <ctime>   // for current time
+#include <fstream> // for loading to file
 
 using namespace std;
 
-//Template for question
+// Template for question
 struct Question {
     int id;
     string title;
@@ -22,12 +22,12 @@ struct Question {
 };
 
 // GLOBALS
-map<int, Question> questionBank;  //key -> id, stores -> question
-map<string, vector<int> > topicMap; //search question by topic
-map<string, int> solvedCountByTopic; //solved per topic
-map<string, int> solvedCountByDate; //solved on date
-map<int, Question> deletedQuestions; //stores deleted question to undo
-stack<pair<string, int> > undoStack; //to undo actions
+map<int, Question> questionBank;  // key -> id, stores -> question
+map<string, vector<int> > topicMap; // search question by topic
+map<string, int> solvedCountByTopic; // solved per topic
+map<string, int> solvedCountByDate;  // solved on date
+map<int, Question> deletedQuestions; // stores deleted question to undo
+stack<pair<string, int> > undoStack; // to undo actions
 int questionID = 1;
 
 // Get current date in dd/mm/yyyy
@@ -46,11 +46,11 @@ void saveDataToFile() {
     for (map<int, Question>::iterator it = questionBank.begin(); it != questionBank.end(); ++it) {
         Question& q = it->second;
         fout << q.id << ","
-             << '\"' << q.title << "\","
+             << '"' << q.title << '"' << ","
              << q.topic << ","
              << q.difficulty << ","
              << q.platform << ","
-             << '\"' << q.notes << "\","
+             << '"' << q.notes << '"' << ","
              << (q.isSolved ? "Yes" : "No") << ","
              << q.solvedDate << "\n";
     }
@@ -68,7 +68,8 @@ void showMenu() {
     cout << "6. Undo last action\n";
     cout << "7. View all questions solved on a particular date\n";
     cout << "8. Delete a question by ID\n";
-    cout << "9. Exit\n";
+    cout << "9. Save data to file manually\n"; // NEW OPTION
+    cout << "10. Exit\n";
     cout << "Enter your choice: ";
 }
 
@@ -314,10 +315,11 @@ int main() {
         case 3: searchByTopic(); break;
         case 4: showSolvedStatsByTopic(); break;
         case 5: showSolvedStatsByDate(); break;
-        case 6: deleteQuestionByID(); break;
+        case 6: undoLastAction(); break;
         case 7: viewQuestionsByDate(); break;
-        case 8: undoLastAction(); break;
-        case 9: cout << "Exiting... Good luck with your prep!\n"; return 0;
+        case 8: deleteQuestionByID(); break;
+        case 9: saveDataToFile(); cout << "✔ Data saved to tracker_data.csv successfully!\n"; break;
+        case 10: cout << "Exiting... Good luck with your prep!\n"; return 0;
         default: cout << "Invalid choice. Try again.\n";
         }
     }
