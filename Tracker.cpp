@@ -102,7 +102,7 @@ void addQuestion() {
 
     saveDataToFile();
 
-    cout << "✅ Question added with ID: " << q.id << "\n";
+    cout << "Question added with ID: " << q.id << "\n";
 }
 
 // Mark as solved
@@ -128,12 +128,12 @@ void markSolved() {
 
             saveDataToFile();
 
-            cout << "✅ Marked as solved.\n";
+            cout << "Marked as solved.\n";
         } else {
-            cout << "⚠️ Already marked as solved.\n";
+            cout << "Already marked as solved.\n";
         }
     } else {
-        cout << "❌ Invalid Question ID.\n";
+        cout << "Invalid Question ID.\n";
     }
 }
 
@@ -150,7 +150,7 @@ void searchByTopic() {
         Question& q = it->second;
         if (q.topic == topic) {
             if (!found) {
-                cout << "\n📚 Questions under topic [" << topic << "]:\n";
+                cout << "\n Questions under topic [" << topic << "]:\n";
                 found = true;
             }
             cout << "ID: " << q.id
@@ -162,13 +162,13 @@ void searchByTopic() {
     }
 
     if (!found) {
-        cout << "⚠️ No questions found for this topic.\n";
+        cout << "No questions found for this topic.\n";
     }
 }
 
 // Stats by topic
 void showSolvedStatsByTopic() {
-    cout << "\n📊 Solved Questions by Topic:\n";
+    cout << "\n Solved Questions by Topic:\n";
     if (solvedCountByTopic.empty()) {
         cout << "No solved questions yet.\n";
     }
@@ -179,7 +179,7 @@ void showSolvedStatsByTopic() {
 
 // Stats by date
 void showSolvedStatsByDate() {
-    cout << "\n🗓 Solved Questions by Date:\n";
+    cout << "\n Solved Questions by Date:\n";
     if (solvedCountByDate.empty()) {
         cout << "No solved questions yet.\n";
     }
@@ -205,7 +205,7 @@ void viewQuestionsByDate() {
     }
 
     if (solvedOnDate.empty()) {
-        cout << "⚠️ No questions were marked as solved on this date.\n";
+        cout << "No questions were marked as solved on this date.\n";
         return;
     }
 
@@ -213,7 +213,7 @@ void viewQuestionsByDate() {
         return a.title < b.title;
     });
 
-    cout << "\n📝 Questions solved on " << date << ":\n";
+    cout << "\n Questions solved on " << date << ":\n";
     for (size_t i = 0; i < solvedOnDate.size(); ++i) {
         Question& q = solvedOnDate[i];
         cout << "ID: " << q.id
@@ -224,7 +224,7 @@ void viewQuestionsByDate() {
              << " | Notes: " << q.notes << "\n";
     }
 
-    cout << "\n✅ Total solved on this date: " << solvedOnDate.size() << "\n";
+    cout << "\n Total solved on this date: " << solvedOnDate.size() << "\n";
 }
 
 // Delete by ID
@@ -234,7 +234,7 @@ void deleteQuestionByID() {
     cin >> id;
 
     if (questionBank.find(id) == questionBank.end()) {
-        cout << "❌ No such question found.\n";
+        cout << " No such question found.\n";
         return;
     }
 
@@ -262,7 +262,7 @@ void deleteQuestionByID() {
 // Undo last action
 void undoLastAction() {
     if (undoStack.empty()) {
-        cout << "❌ Nothing to undo.\n";
+        cout << "Nothing to undo.\n";
         return;
     }
 
@@ -277,7 +277,7 @@ void undoLastAction() {
             remove(topicMap[topic].begin(), topicMap[topic].end(), id),
             topicMap[topic].end());
         questionBank.erase(id);
-        cout << "↩️ Undid last added question.\n";
+        cout << "Undid last added question.\n";
     } else if (action == "solve") {
         string topic = questionBank[id].topic;
         string date = questionBank[id].solvedDate;
@@ -285,7 +285,7 @@ void undoLastAction() {
         questionBank[id].solvedDate = "";
         solvedCountByTopic[topic]--;
         solvedCountByDate[date]--;
-        cout << "↩️ Undid last mark as solved.\n";
+        cout << "Undid last mark as solved.\n";
     } else if (action == "delete") {
         Question q = deletedQuestions[id];
         questionBank[id] = q;
@@ -295,7 +295,7 @@ void undoLastAction() {
             solvedCountByDate[q.solvedDate]++;
         }
         deletedQuestions.erase(id);
-        cout << "↩️ Undid question deletion.\n";
+        cout << "Undid question deletion.\n";
     }
 
     saveDataToFile();
@@ -317,8 +317,8 @@ int main() {
         case 6: deleteQuestionByID(); break;
         case 7: viewQuestionsByDate(); break;
         case 8: undoLastAction(); break;
-        case 9: cout << "👋 Exiting... Good luck with your prep!\n"; return 0;
-        default: cout << "❌ Invalid choice. Try again.\n";
+        case 9: cout << "Exiting... Good luck with your prep!\n"; return 0;
+        default: cout << "Invalid choice. Try again.\n";
         }
     }
 }
