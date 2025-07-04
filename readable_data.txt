@@ -1,0 +1,16 @@
+ID: 1
+Title: Decode the message
+Topic: Strings
+Difficulty: Easy
+Notes: Optimise
+Platform: LC 2325
+Solved: Yes
+------------------------
+ID: 2
+Title: minimum amount of time
+Topic: strings
+Difficulty: Medium
+Notes: Do Again
+Platform: Lc 2391
+Solved: Yes
+------------------------

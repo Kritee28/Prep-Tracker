@@ -1,0 +1,2 @@
+1|Decode the message|Strings|Easy|Optimise|LC 2325|1
+2|minimum amount of time|strings|Medium|Do Again|Lc 2391|1
